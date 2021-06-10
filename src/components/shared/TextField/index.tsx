@@ -10,7 +10,7 @@ import {
 
 import Validation from '../../../domain/validations/validation'
 
-interface TextFieldProps {
+interface Props {
   autoFocus?: boolean
   enabled?: boolean
   label?: string
@@ -21,7 +21,7 @@ interface TextFieldProps {
   onValidate?(event: ChangeEvent<HTMLInputElement> | undefined): Validation
 }
 
-const TextField: React.FunctionComponent<TextFieldProps> = ({
+const TextField: React.FC<Props> = ({
   autoFocus,
   enabled,
   label,
@@ -34,6 +34,7 @@ const TextField: React.FunctionComponent<TextFieldProps> = ({
   
   const [focused, setFocused] = useState<boolean>(false)
   const [validation, setValidation] = useState<Validation>(new Validation())
+  const [touched, setTouched] = useState<Boolean>(false)
   const inputElement = useRef<HTMLInputElement>(null)
 
   const disabled = useMemo(() => {
@@ -43,6 +44,8 @@ const TextField: React.FunctionComponent<TextFieldProps> = ({
   }, [enabled])
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setTouched(true)
+
     if (!!validation)
     {
       const emptyValidation = new Validation()
@@ -56,7 +59,7 @@ const TextField: React.FunctionComponent<TextFieldProps> = ({
   const handleFocusOut = (event: ChangeEvent<HTMLInputElement>): void => {
     setFocused(false)
 
-    if (!!onValidate)
+    if (touched && !!onValidate)
       setValidation(onValidate(event))
   }
 
