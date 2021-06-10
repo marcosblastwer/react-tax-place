@@ -4,12 +4,11 @@ import FormBox from '../../components/FormBox'
 import RegisterAccountant from '../../components/RegisterAccountant'
 import SignUp from '../../components/SignUp'
 
-const SignUpAccountantPage: React.FunctionComponent = () => {
+const SignUpAccountantPage: React.FC = () => {
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [accountCreated, setAccountCreated] = useState<boolean>(false)
-
   const [documentId, setDocumentId] = useState<string>('')
   const [documentAccountant, setDocumentAccountant] = useState<string>('')  
 
@@ -25,19 +24,19 @@ const SignUpAccountantPage: React.FunctionComponent = () => {
     <FormBox>
       {
         accountCreated
-        ? <RegisterAccountant 
-            name={name}
-            email={email}
-            documentIdState={{documentId, setDocumentId}}
-            documentAccountantState={{documentAccountant, setDocumentAccountant}}
-            onReset={handleSignUpReset}
-          />
-        : <SignUp
-            nameState={{name, setName}}
-            emailState={{email, setEmail}}
-            passwordState={{password, setPassword}}
-            onSubmit={handleSignUp}
-          />
+          ? <RegisterAccountant 
+              name={name}
+              email={email}
+              documentIdState={{documentId, setDocumentId}}
+              documentAccountantState={{documentAccountant, setDocumentAccountant}}
+              onReset={handleSignUpReset}
+            />
+          : <SignUp
+              nameState={{name, setName}}
+              emailState={{email, setEmail}}
+              passwordState={{password, setPassword}}
+              onSubmit={handleSignUp}
+            />
       }
     </FormBox>
   )
